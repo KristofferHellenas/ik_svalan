@@ -71,10 +71,17 @@ if(isset($_POST['changemember'])){
     <input type="text" name="newemail">    
     <input type="submit" value="Ändra medlem" name="changemember">
   </form>
+  <table>
+  <tr>
+  <th>First name</th>
+  <th>Last name</th>
+  <th>E-mail</th>
+  </tr>
   <?php
       foreach($members as $member){
-        echo $member['first_name'] . ' ' . $member['last_name'] . ' ' . $member['e_mail'] . '<br>';
+        echo '<tr><td>' . $member['first_name'] . '</td><td>' . $member['last_name'] . '</td><td>' . $member['e_mail'] . '</td></tr>';
       }
   ?>
+  </table>
 </body>
 </html>
