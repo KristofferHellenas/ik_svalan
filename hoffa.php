@@ -10,13 +10,52 @@ $dbh = new PDO('mysql:dbname=ik svalan;host=localhost', $user, $pw);
 
 $members = [];
 
+// Databas
 foreach($dbh->query("SELECT * FROM medlemmar") as $row){
   $members[] = $row;
 }
 
+// Hämta alla fotbolls lag
+$fotballteams = [];
+foreach($dbh->query("SELECT * FROM fotboll") as $row){
+  $fotballteams[] = $row;
+}
+
+
+// Hämta alla fotbollsspelare
+$fotballmembers = [];
+
+foreach($dbh->query("SELECT * FROM `medlemmar`
+JOIN fotboll_medlemmar
+ON fotboll_medlemmar.medlem_id = medlemmar.id
+JOIN fotboll
+ON fotboll.id = fotboll_medlemmar.fotboll_id
+") as $row){
+  $fotballmembers[] = $row;
+}
+
+// Hämta alla gymnastik grupper
+$gymgroups = [];
+foreach($dbh->query("SELECT * FROM gymnastik") as $row){
+  $gymgroups[] = $row;
+}
+
+// Hämta alla gymnaster
+$gymmembers = [];
+
+foreach($dbh->query("SELECT * FROM `medlemmar`
+JOIN gymnastik_medlemmar
+ON gymnastik_medlemmar.medlem_id = medlemmar.id
+JOIN gymnastik
+ON gymnastik.id = gymnastik_medlemmar.gymnastik_id
+") as $row){
+  $gymmembers[] = $row;
+}
+
+// Hämta
 
 // echo '<pre>';
-// var_dump($members);
+// var_dump($fotballmembers);
 // echo '</pre>';
 
 // Ändra medlem
@@ -86,12 +125,47 @@ if(isset($_POST['deletemember'])){
   <th>First name</th>
   <th>Last name</th>
   <th>E-mail</th>
+  <th>Membership</th>
   </tr>
   <?php
       foreach($members as $member){
-        echo '<tr><td>' . $member['first_name'] . '</td><td>' . $member['last_name'] . '</td><td>' . $member['e_mail'] . '</td></tr>';
+        echo '<tr><td>' . $member['first_name'] . '</td><td>' . $member['last_name'] . '</td><td>' . $member['e_mail'] . '</td><td>' . $member['membership'] . ' <input type="submit" name="' . $member['id'] . '" value="Ändra medlemskap"></td></tr>';
       }
   ?>
   </table>
+  <hr>
+  <h1>Fotboll</h1>
+  <?php
+  echo 'Antal: ' . count($fotballmembers);
+    foreach($fotballteams as $team){
+      echo '<table>';
+      echo '<h2>' . $team['grupp'] . '</h2>';
+      echo '<tr><th>Förnamn</th><th>Efternamn</th></tr>';
+
+        foreach($fotballmembers as $fotballmember){
+          if($fotballmember['grupp'] == $team['grupp']){
+            echo '<tr><td>' . $fotballmember['first_name'] . '</td><td>' . $fotballmember['last_name'] . '</td></tr>';
+          }
+        }
+
+      echo '</table>';
+    }
+  ?>
+  <hr>
+  <h1>Gymnastik</h1>
+    <?php
+    echo 'Antal: ' . count($gymmembers);
+    foreach($gymgroups as $gymgroup){
+      echo '<table>';
+      echo '<h2>' . $gymgroup['grupp'] . '</h2>';
+      echo '<tr><th>Förnamn</th><th>Efternamn</th></tr>';
+        foreach($gymmembers as $gymmember){
+          if($gymmember['grupp'] == $gymgroup['grupp']){
+            echo '<tr><td>' . $gymmember['first_name'] . '</td><td>' . $gymmember['last_name'] . '</td></tr>';
+          }
+        }
+      echo '</table>';
+    }
+    ?>
 </body>
 </html>
