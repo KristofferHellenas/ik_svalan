@@ -52,7 +52,23 @@ ON gymnastik.id = gymnastik_medlemmar.gymnastik_id
   $gymmembers[] = $row;
 }
 
-// Hämta
+// Hämta alla skidgrupper
+$skigroups = [];
+foreach($dbh->query("SELECT * FROM skidor") as $row){
+  $skigroups[] = $row;
+}
+
+// Hämta alla skidåkare
+$skimembers = [];
+foreach($dbh->query("SELECT * FROM `medlemmar`
+JOIN skidor_medlemmar
+ON skidor_medlemmar.medlem_id = medlemmar.id
+JOIN skidor
+ON skidor.id = skidor_medlemmar.skidor_id
+") as $row){
+  $skimembers[] = $row;
+}
+
 
 // echo '<pre>';
 // var_dump($fotballmembers);
@@ -162,6 +178,22 @@ if(isset($_POST['deletemember'])){
         foreach($gymmembers as $gymmember){
           if($gymmember['grupp'] == $gymgroup['grupp']){
             echo '<tr><td>' . $gymmember['first_name'] . '</td><td>' . $gymmember['last_name'] . '</td></tr>';
+          }
+        }
+      echo '</table>';
+    }
+    ?>
+    <hr>
+    <h1>Skidor</h1>
+    <?php
+    echo 'Antal: ' . count($skimembers);
+    foreach($skigroups as $skigroup){
+      echo '<table>';
+      echo '<h2>' . $skigroup['grupp'] . '</h2>';
+      echo '<tr><th>Förnamn</th><th>Efternamn</th></tr>';
+        foreach($skimembers as $skimember){
+          if($skimember['grupp'] == $skigroup['grupp']){
+            echo '<tr><td>' . $skimember['first_name'] . '</td><td>' . $skimember['last_name'] . '</td></tr>';
           }
         }
       echo '</table>';
