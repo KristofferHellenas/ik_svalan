@@ -17,35 +17,23 @@ if(isset($_POST['submitAddMember'])){
 
   $first_name = $_POST['first_name'];
   $last_name = $_POST['last_name'];
-  $email = $_POST['email'];
+  $e_mail = $_POST['e_mail'];
   $membership = $_POST['membership'];
 
 
   $_SESSION['first_name'] = $first_name;
   $_SESSION['last_name'] = $last_name;
-  $_SESSION['email'] = $email;
+  $_SESSION['e_mail'] = $e_mail;
   $_SESSION['membership'] = $membership;
 
 
-  $query = "INSERT INTO medlemmar (first_name, last_name, email) VALUES (?, ?, ?, ?)";
+  $query = "INSERT INTO medlemmar (first_name, last_name, e_mail, membership) VALUES (?, ?, ?, ?)";
   $statementObj = $connection->prepare($query);
 
-  $statementObj->bind_param("sssb", $first_name, $last_name, $email, $membership);
+  $statementObj->bind_param("ssss", $first_name, $last_name, $e_mail, $membership);
   $statementObj->execute();
 
 }
-
-// $query = "SELECT name FROM medlemmar";
-// $resultObj = $connection->query($query);
-
-
-// if($resultObj->num_rows > 0){
-//   while($singleRowFromQuery = $resultObj->fetch_assoc()){
-//     echo "Djur: " . $singleRowFromQuery['name'] .PHP_EOL;
-//     echo "</br>";
-//   }
-// }
-// $resultObj->close();
 
 // write query for all
 $sql = "SELECT * FROM medlemmar";
@@ -101,11 +89,16 @@ mysqli_close($connection);
         <div class="field">
           <label class="label">E-post</label>
           <div class="control">
-            <input class="input" type="email" name="email" placeholder="e.g alexsmith@gmail.com">
+            <input class="input" type="email" name="e_mail" placeholder="e.g alexsmith@gmail.com">
           </div>
         </div>
 
-        <input type="checkbox" name="membership">
+        <div class="field">
+          <label class="label">Betalat medlemsavgift</label>
+          <div class="control">
+            <input class="input" type="text" name="membership" placeholder="Ja/Nej ">
+          </div>
+        </div>
 
         <!-- <div class="select">
           <select>
