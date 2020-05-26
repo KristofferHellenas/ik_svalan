@@ -14,7 +14,7 @@ if(isset($_POST['submitlogin'])){
 
   $dbh = new PDO('mysql:dbname=ik svalan;host=localhost', $user, $pw);
 
-  header('location: admin.php');
+  header('location: admin.php');1
 }
 ?>
 <!DOCTYPE html>
