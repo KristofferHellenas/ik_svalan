@@ -45,6 +45,15 @@ if(isset($_POST['changemember'])){
 
 }
 
+// Ta bort medlem
+if(isset($_POST['deletemember'])){
+  $id = $_POST['chosenmember'];
+
+  $pdoQuery = "DELETE FROM medlemmar WHERE id = :id";
+  $sth = $dbh->prepare($pdoQuery);
+  $sth->execute([':id' => $id]);
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -70,6 +79,7 @@ if(isset($_POST['changemember'])){
     <label for="newemail">Ny Mail:</label>
     <input type="text" name="newemail">    
     <input type="submit" value="Ändra medlem" name="changemember">
+    <input type="submit" value="Ta bort medlem" name="deletemember">
   </form>
   <table>
   <tr>
