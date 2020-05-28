@@ -207,23 +207,39 @@ if(isset($_POST['submitAddTeam'])){
   <form action="admin.php" method="post">
     <input type="submit" value="Logga ut" name="logout">
   </form>
-  <form action="hoffa.php" method="post">
-    <select name="chosenmember" id="">
+  <div class="addContainer">
+  <div class="addMember">
+  <form action="admin.php" method="post" class="addMemberForm">
+    <select class="select" name="chosenmember" id="">
       <?php
       foreach ($members as $member) {
         echo '<option value="' . $member['id'] . '">' . $member['first_name'] . ' ' . $member['last_name'] . '</option>';
       }
       ?>
     </select>
-    <label for="membernewfirstname">Nytt förnamn:</label>
-    <input type="text" name="membernewfirstname">
-    <label for="membernewlastname">Nytt efternamn:</label>
-    <input type="text" name="membernewlastname">
-    <label for="newemail">Ny Mail:</label>
-    <input type="text" name="newemail">
-    <input type="submit" value="Ändra medlem" name="changemember">
-    <input type="submit" value="Ta bort medlem" name="deletemember">
+    <div class="field">
+      <label  class ="label" for="membernewfirstname">Nytt förnamn:</label>
+      <div class="control">
+        <input class="input" type="text" name="membernewfirstname">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label" for="membernewlastname">Nytt efternamn:</label>
+      <div class="control">
+        <input class="input" type="text" name="membernewlastname">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label" for="newemail">Ny Mail:</label>
+      <div class="control">
+        <input class="input" type="text" name="newemail">
+      </div>
+    </div>
+    <input class="button is-primary" type="submit" value="Ändra medlem" name="changemember">
+    <input class="button is-danger" type="submit" value="Ta bort medlem" name="deletemember">
   </form>
+  </div>
+  </div>
   <!-- <table>
     <tr>
       <th>First name</th>
@@ -355,20 +371,24 @@ if(isset($_POST['submitAddTeam'])){
 
   <hr>
   <section>
+    <div class="container">
     <h1>Fotboll</h1>
+    </div>
+    <?php echo '<div class="container"><p>Antal: ' . count($fotballmembers) . '</p></div>'; ?>
+    <div class="columns">
     <?php
-    echo 'Antal: ' . count($fotballmembers);
     foreach ($fotballteams as $team) {
+      echo '<div class="column">';
       $i = 0;
       foreach ($fotballmembers as $fotballmember) {
         if ($fotballmember['grupp'] == $team['grupp']) {
           $i++;
         }
       }
-      echo '<table>';
       echo '<h2>' . $team['grupp'] . '</h2>';
       echo '<p>Antal: ' . $i .  '</p>';
-      echo '<tr><th>Förnamn</th><th>Efternamn</th></tr>';
+      echo '<table class="table is-striped is-bordered">';
+      echo '<thead><tr><th>Förnamn</th><th>Efternamn</th></tr></thead>';
 
       foreach ($fotballmembers as $fotballmember) {
         if ($fotballmember['grupp'] == $team['grupp']) {
@@ -376,58 +396,72 @@ if(isset($_POST['submitAddTeam'])){
         }
       }
       echo '</table>';
+      echo '</div>';
     }
     ?>
+    </div>
   </section>
   <hr>
   <section>
+  <div class="container">
     <h1>Gymnastik</h1>
+  </div>
+  <?php echo '<div class="container"><p>Antal: ' . count($gymmembers) . '</p></div>' ?>
+  <div class="columns">
     <?php
-    echo 'Antal: ' . count($gymmembers);
     foreach ($gymgroups as $gymgroup) {
       $i = 0;
+      echo '<div class="column">';
       foreach ($gymmembers as $gymmember) {
         if ($gymmember['grupp'] == $gymgroup['grupp']) {
           $i++;
         }
       }
-      echo '<table>';
       echo '<h2>' . $gymgroup['grupp'] . '</h2>';
       echo '<p>Antal: ' . $i . '</p>';
-      echo '<tr><th>Förnamn</th><th>Efternamn</th></tr>';
+      echo '<table class="table is-striped is-bordered">';
+      echo '<thead><tr><th>Förnamn</th><th>Efternamn</th></tr></thead>';
       foreach ($gymmembers as $gymmember) {
         if ($gymmember['grupp'] == $gymgroup['grupp']) {
           echo '<tr><td>' . $gymmember['first_name'] . '</td><td>' . $gymmember['last_name'] . '</td></tr>';
         }
       }
       echo '</table>';
+      echo '</div>';
     }
     ?>
+    </div>
   </section>
   <hr>
   <section>
+  <div class="container">
     <h1>Skidor</h1>
+  </div>
+    <?php echo '<div class="container"><p>Antal: ' . count($skimembers) . '</p></div>'; ?>
+    <div class="columns">
     <?php
-    echo 'Antal: ' . count($skimembers);
     foreach ($skigroups as $skigroup) {
+      echo '<div class="column">';
       $i = 0;
       foreach ($skimembers as $skimember) {
         if ($skimember['grupp'] == $skigroup['grupp']) {
           $i++;
         }
       }
-      echo '<table>';
       echo '<h2>' . $skigroup['grupp'] . '</h2>';
       echo '<p>Antal: ' . $i . '</p>';
-      echo '<tr><th>Förnamn</th><th>Efternamn</th></tr>';
+      echo '<table class="table is-striped is-bordered">';
+      echo '<thead><tr><th>Förnamn</th><th>Efternamn</th></tr></thead>';
       foreach ($skimembers as $skimember) {
         if ($skimember['grupp'] == $skigroup['grupp']) {
           echo '<tr><td>' . $skimember['first_name'] . '</td><td>' . $skimember['last_name'] . '</td></tr>';
         }
       }
       echo '</table>';
+      echo '</div>';
     }
     ?>
+    </div>
   </section>
 
   <form action="admin.php" method="post">
