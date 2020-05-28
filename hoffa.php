@@ -5,7 +5,6 @@ error_reporting(E_ALL);
 
 $user = 'zooJanitor';
 $pw = 'Hejsan123';
-
 $dbh = new PDO('mysql:dbname=ik svalan;host=localhost', $user, $pw);
 
 $members = [];
@@ -150,12 +149,20 @@ if(isset($_POST['deletemember'])){
   ?>
   </table>
   <hr>
+  <section>
   <h1>Fotboll</h1>
   <?php
   echo 'Antal: ' . count($fotballmembers);
     foreach($fotballteams as $team){
+      $i = 0;
+      foreach($fotballmembers as $fotballmember){
+        if($fotballmember['grupp'] == $team['grupp']){
+          $i++;
+        }
+      }
       echo '<table>';
       echo '<h2>' . $team['grupp'] . '</h2>';
+      echo '<p>Antal: ' . $i .  '</p>';
       echo '<tr><th>Förnamn</th><th>Efternamn</th></tr>';
 
         foreach($fotballmembers as $fotballmember){
@@ -163,17 +170,25 @@ if(isset($_POST['deletemember'])){
             echo '<tr><td>' . $fotballmember['first_name'] . '</td><td>' . $fotballmember['last_name'] . '</td></tr>';
           }
         }
-
       echo '</table>';
     }
   ?>
+  </section>
   <hr>
+  <section>
   <h1>Gymnastik</h1>
     <?php
     echo 'Antal: ' . count($gymmembers);
     foreach($gymgroups as $gymgroup){
+      $i = 0;
+      foreach($gymmembers as $gymmember){
+        if($gymmember['grupp'] == $gymgroup['grupp']){
+          $i++;
+        }
+      }
       echo '<table>';
       echo '<h2>' . $gymgroup['grupp'] . '</h2>';
+      echo '<p>Antal: ' . $i . '</p>';
       echo '<tr><th>Förnamn</th><th>Efternamn</th></tr>';
         foreach($gymmembers as $gymmember){
           if($gymmember['grupp'] == $gymgroup['grupp']){
@@ -183,13 +198,22 @@ if(isset($_POST['deletemember'])){
       echo '</table>';
     }
     ?>
+    </section>
     <hr>
+    <section>
     <h1>Skidor</h1>
     <?php
     echo 'Antal: ' . count($skimembers);
     foreach($skigroups as $skigroup){
+      $i = 0;
+      foreach($skimembers as $skimember){
+        if($skimember['grupp'] == $skigroup['grupp']){
+          $i++;
+        }
+      }
       echo '<table>';
       echo '<h2>' . $skigroup['grupp'] . '</h2>';
+      echo '<p>Antal: ' . $i . '</p>';
       echo '<tr><th>Förnamn</th><th>Efternamn</th></tr>';
         foreach($skimembers as $skimember){
           if($skimember['grupp'] == $skigroup['grupp']){
@@ -199,5 +223,6 @@ if(isset($_POST['deletemember'])){
       echo '</table>';
     }
     ?>
+    </section>
 </body>
 </html>
