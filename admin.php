@@ -213,28 +213,28 @@ if(isset($_POST['submitAddTeam'])){
       <h3 class="title">Lägg till ny medlem</h3>
       <div class="addMember">
         <div class="field">
-          <label class="label">Förnamn</label>
+          <label class="label">Förnamn:</label>
           <div class="control">
             <input class="input" type="text" name="first_name" placeholder="e.g Alex">
           </div>
         </div>
 
         <div class="field">
-          <label class="label">Efternamn</label>
+          <label class="label">Efternamn:</label>
           <div class="control">
             <input class="input" type="text" name="last_name" placeholder="e.g. Smith ">
           </div>
         </div>
 
         <div class="field">
-          <label class="label">E-post</label>
+          <label class="label">E-post:</label>
           <div class="control">
             <input class="input" type="email" name="e_mail" placeholder="e.g alexsmith@gmail.com">
           </div>
         </div>
 
         <div class="field">
-          <label class="label">Betalat medlemsavgift</label>
+          <label class="label">Betalat medlemsavgift:</label>
           <div class="control">
             <input class="input" type="text" name="membership" placeholder="Ja/Nej ">
           </div>
@@ -274,6 +274,7 @@ if(isset($_POST['submitAddTeam'])){
       <div class="addMember">
       <h3 class="title">Redigera medlem</h3>
 
+      <label  class ="label">Medlem:</label>
       <select class="select" name="chosenmember" id="">
         <?php
         foreach ($members as $member) {
@@ -320,14 +321,14 @@ if(isset($_POST['submitAddTeam'])){
       <h3 class="title">Lägg till nytt lag</h3>
       <div class="addMember">
         <div class="field">
-          <label class="label">Namn på nytt lag</label>
+          <label class="label">Namn på nytt lag:</label>
           <div class="control">
             <input class="input" type="text" name="new_team" placeholder="e.g F07">
           </div>
         </div>
 
         <div class="field">
-          <label class="label">Idrott</label>
+          <label class="label">Idrott:</label>
           <div class="control">
             <input class="input" type="text" name="sport" placeholder="e.g fotboll, gymnastik, skidor">
           </div>
@@ -337,9 +338,8 @@ if(isset($_POST['submitAddTeam'])){
       </div>
     </form>
     
-
-    <div class="addMember">
       <form action="admin.php" method="post" class="addMemberForm">
+        <div class="addMember">
         <h3 class="title">Ta bort lag</h3>
         <select name="chosenteam" id="">
         <option value="">---Fotboll---</option>
@@ -381,7 +381,7 @@ if(isset($_POST['submitAddTeam'])){
     ?>
   </table> -->
 
-  <h2 class="adminTitle">Överblick</h2>
+  <h2 class="adminTitle">Översikt</h2>
   <div class="addContainer">
     <div class="tables">
       <h3 class="title">Medlemmar</h3>

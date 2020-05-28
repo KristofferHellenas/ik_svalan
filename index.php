@@ -33,8 +33,8 @@ if(isset($_POST['submitlogin'])){
     <div class="leftSection"></div>
     <div class="rightSection">
       <h1>IK Svalan</h1>
-      <p>Välkommen till idrottsföreningen IK Svalan!</p>
-      <p class="infoText">Logga in som administratör:</p>
+      <p class="infoText">Välkommen till idrottsföreningen IK Svalan!</p>
+      <p>Logga in som administratör:</p>
 
       <form class="loginForm" action="" method="post">
         <input class="input" type="text" name="username" placeholder="Användarnamn">

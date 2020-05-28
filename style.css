@@ -1,3 +1,4 @@
+/*------------------------Login page-------------------------*/
 .loginContainer {
   display: flex;
   flex-direction: row;
@@ -7,7 +8,7 @@
 .leftSection {
   width: 50%;
   height: 100vh;
-  background-image: url("backgroundBasket.jpg");
+  background-image: url("fotboll.jpg");
   background-size: cover;
 }
 
@@ -24,24 +25,23 @@
   justify-content: center;
   align-items: center;
   width: 50%;
+  margin-top: 10px;
 }
 
 h1 {
-  font-size: 40px;
-  margin-bottom: 30px;
+  font-size: 44px;
+  margin-bottom: 26px;
 }
 
-/* form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-} */
+.infoText {
+  font-size: 21px;
+}
 
 .startpage input {
   margin-top: 20px;
 }
 
-/*--------------------------Admin---------------------------*/
+/*------------------------Admin page-------------------------*/
 
 .adminContainer {
   display: flex;
@@ -54,10 +54,6 @@ h1 {
   margin-bottom: 30px;
 } */
 
-/* .adminText {
-  margin-bottom: 20px;
-} */
-
 .adminTitle{
   font-size: 30px;
   margin-top: 30px;
@@ -66,26 +62,28 @@ h1 {
 .title {
   font-size: 25px;
   text-align: center;
-  margin-top: 50px;
+  margin-top: 35px;
 }
 
 .addContainer {
 display: flex;
 flex-direction: row;
+justify-content: center;
 width: 90%;
 border-bottom: 1px solid grey;
+margin-top: 15px;
 }
 
 .addMember {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   width: 100%;
-  margin: 20px 0 50px 0;
 }
 
 .addMemberForm {
-width: 100%;
-padding: 30px 100px;
+  width: 40%;
+  padding: 30px 80px;
 }
 
 .tables {
@@ -96,7 +94,8 @@ padding: 30px 100px;
 
 .logOutForm{
   width: 30%;
-  margin: 15px 0 20px 0;
+  margin: 0 0 20px 0;
+  text-align: center;
 }
 
 .field {
@@ -116,7 +115,7 @@ table {
 }
 
 input {
-  width: 50%;
+  width: 45%;
   margin: 15px auto 0 auto;
 }
 
