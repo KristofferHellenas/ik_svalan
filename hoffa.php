@@ -115,7 +115,10 @@ if(isset($_POST['deletemember'])){
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Document</title>  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <form action="hoffa.php" method="post">
@@ -135,6 +138,7 @@ if(isset($_POST['deletemember'])){
     <input type="submit" value="Ändra medlem" name="changemember">
     <input type="submit" value="Ta bort medlem" name="deletemember">
   </form>
+  <h1>Alla medlemmar</h1>
   <table>
   <tr>
   <th>First name</th>
@@ -144,25 +148,29 @@ if(isset($_POST['deletemember'])){
   </tr>
   <?php
       foreach($members as $member){
-        echo '<tr><td>' . $member['first_name'] . '</td><td>' . $member['last_name'] . '</td><td>' . $member['e_mail'] . '</td><td>' . $member['membership'] . ' <input type="submit" name="' . $member['id'] . '" value="Ändra medlemskap"></td></tr>';
+        echo '<tr><td>' . $member['first_name'] . '</td><td>' . $member['last_name'] . '</td><td>' . $member['e_mail'] . '</td><td>' . $member['membership'] . '</td></tr>';
       }
   ?>
   </table>
   <hr>
   <section>
+  <div class="container">
   <h1>Fotboll</h1>
+  </div>
+  <?php echo '<div class="container"><p>Antal: ' . count($fotballmembers) . '</p></div>'; ?>
+  <div class="columns">
   <?php
-  echo 'Antal: ' . count($fotballmembers);
     foreach($fotballteams as $team){
+      echo '<div class ="column">';
       $i = 0;
       foreach($fotballmembers as $fotballmember){
         if($fotballmember['grupp'] == $team['grupp']){
           $i++;
         }
       }
-      echo '<table>';
       echo '<h2>' . $team['grupp'] . '</h2>';
       echo '<p>Antal: ' . $i .  '</p>';
+      echo '<table>';
       echo '<tr><th>Förnamn</th><th>Efternamn</th></tr>';
 
         foreach($fotballmembers as $fotballmember){
@@ -171,24 +179,30 @@ if(isset($_POST['deletemember'])){
           }
         }
       echo '</table>';
+      echo '</div>';
     }
   ?>
+  </div>
   </section>
   <hr>
   <section>
+  <div class="container">
   <h1>Gymnastik</h1>
+  </div>
+  <?php echo '<div class="container"><p>Antal: ' . count($gymmembers) . '</p></div>' ?>
+  <div class="columns">
     <?php
-    echo 'Antal: ' . count($gymmembers);
     foreach($gymgroups as $gymgroup){
+      echo '<div class="column">';
       $i = 0;
       foreach($gymmembers as $gymmember){
         if($gymmember['grupp'] == $gymgroup['grupp']){
           $i++;
         }
-      }
-      echo '<table>';
+      }      
       echo '<h2>' . $gymgroup['grupp'] . '</h2>';
       echo '<p>Antal: ' . $i . '</p>';
+      echo '<table>';
       echo '<tr><th>Förnamn</th><th>Efternamn</th></tr>';
         foreach($gymmembers as $gymmember){
           if($gymmember['grupp'] == $gymgroup['grupp']){
@@ -196,24 +210,30 @@ if(isset($_POST['deletemember'])){
           }
         }
       echo '</table>';
+      echo '</div>';
     }
     ?>
+    </div>
     </section>
     <hr>
     <section>
+    <div class="container">
     <h1>Skidor</h1>
+    </div>
+    <?php echo '<div class="container"><p>Antal: ' . count($skimembers) . '</p></div>'; ?>
+    <div class="columns">
     <?php
-    echo 'Antal: ' . count($skimembers);
     foreach($skigroups as $skigroup){
+      echo '<div class="column">';
       $i = 0;
       foreach($skimembers as $skimember){
         if($skimember['grupp'] == $skigroup['grupp']){
           $i++;
         }
       }
-      echo '<table>';
       echo '<h2>' . $skigroup['grupp'] . '</h2>';
       echo '<p>Antal: ' . $i . '</p>';
+      echo '<table>';
       echo '<tr><th>Förnamn</th><th>Efternamn</th></tr>';
         foreach($skimembers as $skimember){
           if($skimember['grupp'] == $skigroup['grupp']){
@@ -221,8 +241,10 @@ if(isset($_POST['deletemember'])){
           }
         }
       echo '</table>';
+      echo '</div>';
     }
     ?>
+    </div>
     </section>
 </body>
 </html>
