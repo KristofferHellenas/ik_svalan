@@ -207,8 +207,8 @@ if(isset($_POST['submitAddTeam'])){
   <h2 class="adminTitle">Hantera medlemmar</h2>
   <div class="addContainer">
     <form action="admin.php" method="POST" class="addMemberForm">
-      <h3 class="title">Lägg till ny medlem</h3>
       <div class="addMember">
+        <h3 class="title">Lägg till ny medlem</h3>
         <div class="field">
           <label class="label">Förnamn:</label>
           <div class="control">
@@ -312,28 +312,28 @@ if(isset($_POST['submitAddTeam'])){
     </form>
 
 
-<h2 class="adminTitle">Hantera lag</h2>
-  <div class="addContainer">
-    <form action="admin.php" method="POST" class="addMemberForm">
-      <h3 class="title">Lägg till nytt lag</h3>
-      <div class="addMember">
-        <div class="field">
-          <label class="label">Namn på nytt lag:</label>
-          <div class="control">
-            <input class="input" type="text" name="new_team" placeholder="e.g F07">
+    <h2 class="adminTitle">Hantera lag</h2>
+    <div class="addContainer">
+      <form action="admin.php" method="POST" class="addMemberForm">
+        <div class="addMember">
+          <h3 class="title">Lägg till nytt lag</h3>
+          <div class="field">
+            <label class="label">Namn på nytt lag:</label>
+            <div class="control">
+              <input class="input" type="text" name="new_team" placeholder="e.g F07">
+            </div>
           </div>
-        </div>
 
-        <div class="field">
-          <label class="label">Idrott:</label>
-          <div class="control">
-            <input class="input" type="text" name="sport" placeholder="e.g fotboll, gymnastik, skidor">
+          <div class="field">
+            <label class="label">Idrott:</label>
+            <div class="control">
+              <input class="input" type="text" name="sport" placeholder="e.g fotboll, gymnastik, skidor">
+            </div>
           </div>
-        </div>
 
-        <input class="button is-primary" type="submit" name="submitAddTeam" value="Lägg till lag">
-      </div>
-    </form>
+          <input class="button is-primary" type="submit" name="submitAddTeam" value="Lägg till lag">
+        </div>
+      </form>
     
       <form action="admin.php" method="post" class="addMemberForm">
         <div class="addMember">
