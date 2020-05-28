@@ -81,7 +81,7 @@ if(isset($_POST['changemember'])){
   $newmail = $members[$cMember - 1]['e_mail'];
   $newfirstname = $members[$cMember - 1]['first_name'];
   $newlastname = $members[$cMember - 1]['last_name'];
-
+  $membership = $members[$cMember -1]['membership'];
 
   if($_POST['membernewfirstname'] != null){
     $newfirstname = $_POST['membernewfirstname'];
@@ -92,10 +92,13 @@ if(isset($_POST['changemember'])){
   if($_POST['newemail'] != null ){
     $newmail = $_POST['newemail'];
   }
+  if($_POST['membership'] != null){
+    $membership = $_POST['membership'];
+  }
 
-  $pdoQuery = "UPDATE medlemmar SET first_name = :first_name, last_name = :last_name, e_mail = :e_mail WHERE id = :id";
+  $pdoQuery = "UPDATE medlemmar SET first_name = :first_name, last_name = :last_name, e_mail = :e_mail, membership = :membership WHERE id = :id";
   $sth = $dbh->prepare($pdoQuery);
-  $sth->execute([':first_name' => $newfirstname, ':last_name' => $newlastname, ':e_mail' => $newmail, ':id' => $cMember]);
+  $sth->execute([':first_name' => $newfirstname, ':last_name' => $newlastname, ':e_mail' => $newmail, ':id' => $cMember, ':membership' => $membership]);
 
 }
 
@@ -134,7 +137,11 @@ if(isset($_POST['deletemember'])){
     <label for="membernewlastname">Nytt efternamn:</label>
     <input type="text" name="membernewlastname">     
     <label for="newemail">Ny Mail:</label>
-    <input type="text" name="newemail">    
+    <input type="text" name="newemail">
+    <select name="membership" id="">
+     <option value="0">Medlem</option>
+     <option value="1">Inte medlem</option>
+    </select>    
     <input type="submit" value="Ändra medlem" name="changemember">
     <input type="submit" value="Ta bort medlem" name="deletemember">
   </form>

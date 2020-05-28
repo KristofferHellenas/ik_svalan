@@ -172,7 +172,7 @@ if (isset($_POST['deleteteam'])) {
     </tr>
     <?php
     foreach ($members as $member) {
-      echo '<tr><td>' . $member['first_name'] . '</td><td>' . $member['last_name'] . '</td><td>' . $member['e_mail'] . '</td><td>' . $member['membership'] . ' <input type="submit" name="' . $member['id'] . '" value="Ändra medlemskap"></td></tr>';
+      echo '<tr><td>' . $member['first_name'] . '</td><td>' . $member['last_name'] . '</td><td>' . $member['e_mail'] . '</td><td>' . $member['membership'] . '</td></tr>';
     }
     ?>
   </table>
