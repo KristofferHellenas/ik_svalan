@@ -29,20 +29,18 @@ if(isset($_POST['submitlogin'])){
 </head>
 <body class="startpage">
   <div class="loginContainer">
-
     <div class="leftSection"></div>
-    <div class="rightSection">
-      <h1>IK Svalan</h1>
-      <p class="infoText">Välkommen till idrottsföreningen IK Svalan!</p>
-      <p>Logga in som administratör:</p>
+      <div class="rightSection">
+        <h1>IK Svalan</h1>
+        <p class="infoText">Välkommen till idrottsföreningen IK Svalan!</p>
+        <p>Logga in som administratör:</p>
 
-      <form class="loginForm" action="" method="post">
-        <input class="input" type="text" name="username" placeholder="Användarnamn">
-        <input class="input" type="password" name="password" placeholder="Lösenord">
-        <input class="button is-info" type="submit" name="submitlogin" value="Logga in">
-      </form>
-    </div>
-
+        <form class="loginForm" action="" method="post">
+          <input class="input" type="text" name="username" placeholder="Användarnamn">
+          <input class="input" type="password" name="password" placeholder="Lösenord">
+          <input class="button is-info" type="submit" name="submitlogin" value="Logga in">
+        </form>
+      </div>
   </div>
 </body>
 </html>

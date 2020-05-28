@@ -20,7 +20,6 @@ foreach ($dbh->query("SELECT * FROM fotboll") as $row) {
   $fotballteams[] = $row;
 }
 
-
 // Hämta alla fotbollsspelare
 $fotballmembers = [];
 
@@ -67,7 +66,6 @@ ON skidor.id = skidor_medlemmar.skidor_id
 ") as $row) {
   $skimembers[] = $row;
 }
-
 
 // echo '<pre>';
 // var_dump($fotballmembers);
@@ -152,7 +150,6 @@ if(isset($_POST['submitAddMember'])){
   $statementObj->bind_param("ssss", $first_name, $last_name, $e_mail, $membership);
   $statementObj->execute();
 }
-
 
 // Lägga till nytt lag/grupp
 if(isset($_POST['submitAddTeam'])){
