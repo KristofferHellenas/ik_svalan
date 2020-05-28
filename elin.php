@@ -13,6 +13,7 @@ if($connection->connect_errno){
   exit("Database Connection Failed. Reason: " . $connection->connect_error);
 }
 
+// Lägga till ny meddlem
 if(isset($_POST['submitAddMember'])){
 
   $first_name = $_POST['first_name'];
@@ -20,20 +21,52 @@ if(isset($_POST['submitAddMember'])){
   $e_mail = $_POST['e_mail'];
   $membership = $_POST['membership'];
 
-
   $_SESSION['first_name'] = $first_name;
   $_SESSION['last_name'] = $last_name;
   $_SESSION['e_mail'] = $e_mail;
   $_SESSION['membership'] = $membership;
-
 
   $query = "INSERT INTO medlemmar (first_name, last_name, e_mail, membership) VALUES (?, ?, ?, ?)";
   $statementObj = $connection->prepare($query);
 
   $statementObj->bind_param("ssss", $first_name, $last_name, $e_mail, $membership);
   $statementObj->execute();
-
 }
+
+
+// Lägga till nytt lag/grupp
+if(isset($_POST['submitAddTeam'])){
+
+  $new_team = $_POST['new_team'];
+  $sport = $_POST['sport'];
+
+  $_SESSION['new_team'] = $new_team;
+  $_SESSION['sport'] = $sport;
+
+
+  if($sport == 'fotboll'){
+  $query = "INSERT INTO fotboll (grupp) VALUES (?)";
+  $statementObj = $connection->prepare($query);
+
+  $statementObj->bind_param("s", $new_team);
+  $statementObj->execute();
+  }
+  else if($sport == 'gymnastik'){
+  $query = "INSERT INTO gymnastik (grupp) VALUES (?)";
+  $statementObj = $connection->prepare($query);
+
+  $statementObj->bind_param("s", $new_team);
+  $statementObj->execute();
+  }
+  else if($sport == 'skidor'){
+  $query = "INSERT INTO skidor (grupp) VALUES (?)";
+  $statementObj = $connection->prepare($query);
+
+  $statementObj->bind_param("s", $new_team);
+  $statementObj->execute();
+  }
+}
+
 
 // write query for all
 $sql = "SELECT * FROM medlemmar";
@@ -68,8 +101,10 @@ mysqli_close($connection);
   <body>
     <div class="adminContainer">
 
-      <h1>IK Svalan</h1>
-
+      <h1 class="headline">IK Svalan</h1>
+    <div class="addContainer">
+    
+    <h2 class="title">Lägg till ny medlem</h2>
       <form action="admin.php" method="POST" class="addMemberForm">
       <div class="addMember">
         <div class="field">
@@ -100,8 +135,9 @@ mysqli_close($connection);
           </div>
         </div>
 
-        <!-- <div class="select">
-          <select>
+        <!-- <div class="select"> -->
+        <!-- <label class="label">Lägg till medlem i grupp</label> -->
+          <!-- <select>
             <option>Idrott & grupp</option>
             <option>Fotboll - F08</option>
             <option>Fotboll - F09</option>
@@ -115,13 +151,35 @@ mysqli_close($connection);
             <option>Skidor - Motion</option>
             <option>Skidor - Elit Dam</option>
             <option>Skidor - Elit Herr</option>
-          </select>
-        </div> -->
-
-        
+          </select> -->
+        <!-- </div> -->
           <input class="button is-primary" type="submit" name="submitAddMember" value="Lägg till medlem">
-        </form>
       </div>
+      </form>
+
+
+    <h2 class="title">Lägg till ntt lag</h2>
+      <form action="admin.php" method="POST" class="addMemberForm">
+      <div class="addMember">
+        <div class="field">
+          <label class="label">Namn på nytt lag</label>
+          <div class="control">
+            <input class="input" type="text" name="new_team" placeholder="e.g F07">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Idrott</label>
+          <div class="control">
+            <input class="input" type="text" name="sport" placeholder="e.g fotboll, gymnastik, skidor">
+          </div>
+        </div>
+
+          <input class="button is-primary" type="submit" name="submitAddTeam" value="Lägg till lag">
+      </div>
+      </form>
+</div>
+
 
       <!-- Dropdown -->
       <!-- <div class="select">
