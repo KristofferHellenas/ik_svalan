@@ -13,7 +13,7 @@ if($connection->connect_errno){
   exit("Database Connection Failed. Reason: " . $connection->connect_error);
 }
 
-// Lägga till ny meddlem
+// Lägg till ny meddlem
 if(isset($_POST['submitAddMember'])){
 
   $first_name = $_POST['first_name'];
@@ -34,7 +34,7 @@ if(isset($_POST['submitAddMember'])){
 }
 
 
-// Lägga till nytt lag/grupp
+// Lägg till nytt lag/grupp
 if(isset($_POST['submitAddTeam'])){
 
   $new_team = $_POST['new_team'];
