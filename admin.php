@@ -129,7 +129,63 @@ if (isset($_POST['deleteteam'])) {
   $sth->execute([':id' => $id]);
 }
 
+// Lägga till ny meddlem
+if(isset($_POST['submitAddMember'])){
 
+  $first_name = $_POST['first_name'];
+  $last_name = $_POST['last_name'];
+  $e_mail = $_POST['e_mail'];
+  $membership = $_POST['membership'];
+  // $team = $_POST['lag'];
+  // var_dump($team);
+
+  $_SESSION['first_name'] = $first_name;
+  $_SESSION['last_name'] = $last_name;
+  $_SESSION['e_mail'] = $e_mail;
+  $_SESSION['membership'] = $membership;
+  // $_SESSION['lag'] = $team;
+
+
+  $query = "INSERT INTO medlemmar (first_name, last_name, e_mail, membership) VALUES (?, ?, ?, ?)";
+  $statementObj = $dbh->prepare($query);
+
+  $statementObj->bind_param("ssss", $first_name, $last_name, $e_mail, $membership);
+  $statementObj->execute();
+}
+
+
+// Lägga till nytt lag/grupp
+if(isset($_POST['submitAddTeam'])){
+
+  $new_team = $_POST['new_team'];
+  $sport = $_POST['sport'];
+
+  $_SESSION['new_team'] = $new_team;
+  $_SESSION['sport'] = $sport;
+
+
+  if($sport == 'fotboll'){
+  $query = "INSERT INTO fotboll (grupp) VALUES (?)";
+  $statementObj = $dbh->prepare($query);
+
+  $statementObj->bind_param("s", $new_team);
+  $statementObj->execute();
+  }
+  else if($sport == 'gymnastik'){
+  $query = "INSERT INTO gymnastik (grupp) VALUES (?)";
+  $statementObj = $dbh->prepare($query);
+
+  $statementObj->bind_param("s", $new_team);
+  $statementObj->execute();
+  }
+  else if($sport == 'skidor'){
+  $query = "INSERT INTO skidor (grupp) VALUES (?)";
+  $statementObj = $dbh->prepare($query);
+
+  $statementObj->bind_param("s", $new_team);
+  $statementObj->execute();
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -138,11 +194,16 @@ if (isset($_POST['deleteteam'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <link rel="stylesheet" href="style.css">
   <title>Document</title>
 </head>
 
 <body>
-  <h1>IK Svalan</h1>
+<div class="adminContainer">
+
+  <h1 class="headline">IK Svalan</h1>
   <form action="admin.php" method="post">
     <input type="submit" value="Logga ut" name="logout">
   </form>
@@ -163,7 +224,7 @@ if (isset($_POST['deleteteam'])) {
     <input type="submit" value="Ändra medlem" name="changemember">
     <input type="submit" value="Ta bort medlem" name="deletemember">
   </form>
-  <table>
+  <!-- <table>
     <tr>
       <th>First name</th>
       <th>Last name</th>
@@ -171,11 +232,127 @@ if (isset($_POST['deleteteam'])) {
       <th>Membership</th>
     </tr>
     <?php
-    foreach ($members as $member) {
-      echo '<tr><td>' . $member['first_name'] . '</td><td>' . $member['last_name'] . '</td><td>' . $member['e_mail'] . '</td><td>' . $member['membership'] . '</td></tr>';
-    }
+    // foreach ($members as $member) {
+    //   echo '<tr><td>' . $member['first_name'] . '</td><td>' . $member['last_name'] . '</td><td>' . $member['e_mail'] . '</td><td>' . $member['membership'] . '</td></tr>';
+    // }
     ?>
-  </table>
+  </table> -->
+
+  <div class="addContainer">
+  <h2 class="title">Lägg till ny medlem</h2>
+    <form action="admin.php" method="POST" class="addMemberForm">
+      <div class="addMember">
+        <div class="field">
+          <label class="label">Förnamn</label>
+          <div class="control">
+            <input class="input" type="text" name="first_name" placeholder="e.g Alex">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Efternamn</label>
+          <div class="control">
+            <input class="input" type="text" name="last_name" placeholder="e.g. Smith ">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">E-post</label>
+          <div class="control">
+            <input class="input" type="email" name="e_mail" placeholder="e.g alexsmith@gmail.com">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Betalat medlemsavgift</label>
+          <div class="control">
+            <input class="input" type="text" name="membership" placeholder="Ja/Nej ">
+          </div>
+        </div>
+
+        <!-- <div class="select">
+        <label class="label">Lägg till medlem i grupp</label>
+          <select name="lag">
+            <option>Idrott & grupp</option>
+            <option>--------Fotboll---------</option>
+            <?php 
+              // foreach($fotbollslag as $lag){
+              //   echo '<option value="' . $lag['grupp'] . '">' . $lag['grupp'] . '</option>';
+              // }
+            ?>
+            <option>--------Gymnastik------</option>
+            <?php 
+              // foreach($gymnastiklag as $lag){
+              //   echo '<option value="' . $lag['grupp'] . '">' . $lag['grupp'] . '</option>';
+              // }
+            ?>
+            <option>--------Skidor----------</option>
+            <?php 
+              // foreach($skidlag as $lag){
+              //   echo '<option value="' . $lag['grupp'] . '">' . $lag['grupp'] . '</option>';
+              // }
+            ?>
+          </select>
+        </div> -->
+
+        <input class="button is-primary" type="submit" name="submitAddMember" value="Lägg till medlem">
+      </div>
+    </form>
+
+  <h2 class="title">Lägg till ntt lag</h2>
+    <form action="admin.php" method="POST" class="addMemberForm">
+    <div class="addMember">
+      <div class="field">
+        <label class="label">Namn på nytt lag</label>
+        <div class="control">
+          <input class="input" type="text" name="new_team" placeholder="e.g F07">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Idrott</label>
+        <div class="control">
+          <input class="input" type="text" name="sport" placeholder="e.g fotboll, gymnastik, skidor">
+        </div>
+      </div>
+
+        <input class="button is-primary" type="submit" name="submitAddTeam" value="Lägg till lag">
+    </div>
+    </form>
+  </div>
+
+    <h2 class="title">Medlemmar</h2>
+    <table class="table is-striped is-bordered">
+      <thead>
+        <tr>
+          <th>Förnamn</th>
+          <th>Efternan</th>
+          <th>E-post</th>
+          <th>Medlemsavgift</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <?php foreach($members as $member){ ?>
+          
+          <tr>
+            <td><?php echo htmlspecialchars($member['first_name']); ?></td>
+            <td><?php echo htmlspecialchars($member['last_name']); ?></td>
+            <td><?php echo htmlspecialchars($member['e_mail']); ?></td>
+            <td><?php echo htmlspecialchars($member['membership']); ?></td>
+            <td>
+              <span class="icon is-small has-text-danger">
+                <i class="fas fa-times-circle"></i>
+              </span>
+            </td>
+          </tr>
+
+        <?php } ?>
+
+      </tbody>
+    </table>
+
+
   <hr>
   <section>
     <h1>Fotboll</h1>
@@ -278,6 +455,7 @@ if (isset($_POST['deleteteam'])) {
     </select>
     <input type="submit" value="Ta bort lag" name="deleteteam">
   </form>
+  </div>
 </body>
 
 </html>
