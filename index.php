@@ -22,15 +22,27 @@ if(isset($_POST['submitlogin'])){
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <title>IK Svalan</title>
 </head>
-<body>
-  <form action="" method="post">
-  <label for="username">Användarnamn:</label>
-  <input type="text" name="username">
-  <label for="password">Lösenord</label>
-  <input type="password" name="password">
-  <input type="submit" name="submitlogin" value="Logga in">
-  </form>
+<body class="startpage">
+  <div class="loginContainer">
+
+    <div class="leftSection"></div>
+    <div class="rightSection">
+      <h1>IK Svalan</h1>
+      <p>Välkommen till idrottsföreningen IK Svalan!</p>
+      <p class="infoText">Logga in som administratör:</p>
+
+      <form class="loginForm" action="" method="post">
+        <input class="input" type="text" name="username" placeholder="Användarnamn">
+        <input class="input" type="password" name="password" placeholder="Lösenord">
+        <input class="button is-info" type="submit" name="submitlogin" value="Logga in">
+      </form>
+    </div>
+
+  </div>
 </body>
 </html>
