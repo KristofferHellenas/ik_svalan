@@ -112,6 +112,23 @@ if (isset($_POST['logout'])) {
   header('location: index.php');
 }
 
+//Ta bort lag
+if (isset($_POST['deleteteam'])) {
+  $id = $_POST['chosenteam'];
+
+  $pdoQuery = "DELETE FROM fotboll WHERE id = :id";
+  $sth = $dbh->prepare($pdoQuery);
+  $sth->execute([':id' => $id]);
+
+  $pdoQuery = "DELETE FROM skidor WHERE id = :id";
+  $sth = $dbh->prepare($pdoQuery);
+  $sth->execute([':id' => $id]);
+
+  $pdoQuery = "DELETE FROM gymnastik WHERE id = :id";
+  $sth = $dbh->prepare($pdoQuery);
+  $sth->execute([':id' => $id]);
+}
+
 
 ?>
 
@@ -235,6 +252,32 @@ if (isset($_POST['logout'])) {
     }
     ?>
   </section>
+
+  <form action="admin.php" method="post">
+    <select name="chosenteam" id="">
+      <option value="">---Fotboll---</option>
+      <?php
+      foreach ($fotballteams as $fotballteam) {
+        echo '<option value="' . $fotballteam['id'] . '">' . $fotballteam['grupp'] . '</option>';
+      }
+      ?>
+      <option value="">---Skidor---</option>
+
+      <?php
+      foreach ($skigroups as $skigroup) {
+        echo '<option value="' . $skigroup['id'] . '">' . $skigroup['grupp'] . '</option>';
+      }
+      ?>
+      <option value="">---Gymnastik---</option>
+      <?php
+      foreach ($gymgroups as $gymgroup) {
+        echo '<option value="' . $gymgroup['id'] . '">' . $gymgroup['grupp'] . '</option>';
+      }
+
+      ?>
+    </select>
+    <input type="submit" value="Ta bort lag" name="deleteteam">
+  </form>
 </body>
 
 </html>
