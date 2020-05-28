@@ -3,10 +3,10 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include 'index.php';
+include 'secret.php';
 
-$user = $_SESSION['user'];
-$pw = $_SESSION['pw'];
+// $user = $_SESSION['user'];
+// $pw = $_SESSION['pw'];
 
 $dbh = new PDO('mysql:dbname=ik svalan;host=localhost', $user, $pw);
 
