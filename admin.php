@@ -67,19 +67,34 @@ ON skidor.id = skidor_medlemmar.skidor_id
   $skimembers[] = $row;
 }
 
-// echo '<pre>';
-// var_dump($fotballmembers);
-// echo '</pre>';
-
 // Ändra medlem
 if (isset($_POST['changemember'])) {
 
   $cMember = $_POST['chosenmember'];
 
-  $newmail = $members[$cMember - 1]['e_mail'];
-  $newfirstname = $members[$cMember - 1]['first_name'];
-  $newlastname = $members[$cMember - 1]['last_name'];
+  // Hitta medlem
+  $arrayid = array_filter($members, function($member) use ($cMember){
+    return $member['id'] == $cMember;
+  });
 
+  $newmail = $arrayid['e_mail'];
+  $newfirstname = $arrayid['first_name'];
+  $newlastname = $arrayid['last_name'];
+  // $newfotballteam;
+  // $newskiteam;
+  // $newgymgroup;
+
+  // if($_POST['newteamfotball'] != null){
+  //   $newfotballteam = $_POST['newteamfotball'];
+  // }
+
+  // if($_POST['newteamski'] != null){
+  //   $newskiteam = $_POST['newteamski'];
+  // }
+
+  // if($_POST['newteamgym'] != null){
+  //   $newgymgroup = $_POST['newteamgym'];
+  // }
 
   if ($_POST['membernewfirstname'] != null) {
     $newfirstname = $_POST['membernewfirstname'];
@@ -94,6 +109,12 @@ if (isset($_POST['changemember'])) {
   $pdoQuery = "UPDATE medlemmar SET first_name = :first_name, last_name = :last_name, e_mail = :e_mail WHERE id = :id";
   $sth = $dbh->prepare($pdoQuery);
   $sth->execute([':first_name' => $newfirstname, ':last_name' => $newlastname, ':e_mail' => $newmail, ':id' => $cMember]);
+
+  // $pdoQuery = "INSERT INTO fotboll_medlemmar (fotboll_id, medlem_id) VALUES (:new_team,:member_id) ON DUPLICATE KEY UPDATE fotboll_medlemmar.medlem_id=fotboll_medlemmar.medlem_id+1";
+  // $sth = $dbh->prepare($pdoQuery);
+  // $sth->execute([':new_team' => $newfotballteam, ':medlem_id' => $cMember]);
+
+  var_dump($arrayid);
 }
 
 // Ta bort medlem
@@ -134,14 +155,11 @@ if(isset($_POST['submitAddMember'])){
   $last_name = $_POST['last_name'];
   $e_mail = $_POST['e_mail'];
   $membership = $_POST['membership'];
-  // $team = $_POST['lag'];
-  // var_dump($team);
 
   $_SESSION['first_name'] = $first_name;
   $_SESSION['last_name'] = $last_name;
   $_SESSION['e_mail'] = $e_mail;
   $_SESSION['membership'] = $membership;
-  // $_SESSION['lag'] = $team;
 
 
   $query = "INSERT INTO medlemmar (first_name, last_name, e_mail, membership) VALUES (?, ?, ?, ?)";
@@ -237,31 +255,6 @@ if(isset($_POST['submitAddTeam'])){
           </div>
         </div>
 
-        <!-- <div class="select">
-        <label class="label">Lägg till medlem i grupp</label>
-          <select name="lag">
-            <option>Idrott & grupp</option>
-            <option>--------Fotboll---------</option>
-            <?php 
-              // foreach($fotbollslag as $lag){
-              //   echo '<option value="' . $lag['grupp'] . '">' . $lag['grupp'] . '</option>';
-              // }
-            ?>
-            <option>--------Gymnastik------</option>
-            <?php 
-              // foreach($gymnastiklag as $lag){
-              //   echo '<option value="' . $lag['grupp'] . '">' . $lag['grupp'] . '</option>';
-              // }
-            ?>
-            <option>--------Skidor----------</option>
-            <?php 
-              // foreach($skidlag as $lag){
-              //   echo '<option value="' . $lag['grupp'] . '">' . $lag['grupp'] . '</option>';
-              // }
-            ?>
-          </select>
-        </div> -->
-
         <input class="button is-primary" type="submit" name="submitAddMember" value="Lägg till medlem">
       </div>
     </form>
@@ -304,7 +297,36 @@ if(isset($_POST['submitAddTeam'])){
         </div>
       </div>
 
-      
+      <!-- <label for="newteamfotball">Lägg till i fotbollslag</label>
+      <select name="newteamfotball" id="">
+        <option value="">Välj lag</option>
+        <?php
+            // foreach($fotballteams as $fotballteam){
+            //   echo '<option value="' . $fotballteam['id'] .'">' . $fotballteam['grupp'] . '</option>';
+            // }
+        ?>
+      </select>
+
+      <label for="newteamgym">Lägg till i gymnastik grupp</label>
+      <select name="newteamgym" id="">
+        <option value="">Välj lag</option>
+        <?php
+          // foreach($gymgroups as $gymgroup){
+          //   echo '<option value="' . $gymgroup['id'] . '">' . $gymgroup['grupp'] . '</option>';
+          // }
+        ?>
+      </select>
+
+      <label for="newteamski">Lägg till i skidlag</label>
+      <select name="newteamski" id="">
+        <option value="">Välj lag</option>
+        <?php
+          // foreach($skigroups as $skigroup){
+          //   echo '<option value="' . $skigroup['id'] . '">' . $skigroup['grupp'] . '</option>';
+          // }
+        ?>
+      </select> -->
+
       <input class="button is-primary" type="submit" value="Ändra medlem" name="changemember">
       <input class="button is-danger" type="submit" value="Ta bort medlem" name="deletemember">
       </div>
@@ -364,19 +386,6 @@ if(isset($_POST['submitAddTeam'])){
       </form>
     </div>
   </div>
-  <!-- <table>
-    <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>E-mail</th>
-      <th>Membership</th>
-    </tr>
-    <?php
-    // foreach ($members as $member) {
-    //   echo '<tr><td>' . $member['first_name'] . '</td><td>' . $member['last_name'] . '</td><td>' . $member['e_mail'] . '</td><td>' . $member['membership'] . '</td></tr>';
-    // }
-    ?>
-  </table> -->
 
   <h2 class="adminTitle">Översikt</h2>
   <div class="addContainer">
